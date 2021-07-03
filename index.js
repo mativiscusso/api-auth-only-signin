@@ -16,6 +16,9 @@ app.listen(3000, () => {
     console.log('Servidor iniciado en el puerto 3000')
 })
 
+app.get('/', (req, res) => {
+    res.send('hello')
+})
 
 app.post('/auth', (req, res) => {
     const matchPassword = bcrypt.compareSync(req.body.password, user.password)
