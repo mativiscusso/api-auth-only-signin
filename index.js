@@ -12,8 +12,10 @@ app.use(express.urlencoded({
 }))
 app.use(express.json())
 
-app.listen(3000, () => {
-    console.log('Servidor iniciado en el puerto 3000')
+const port = process.env.port || 8080
+
+app.listen(port, () => {
+    console.log(`Servidor iniciado en el puerto ${port}`)
 })
 
 app.get('/', (req, res) => {
