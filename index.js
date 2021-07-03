@@ -16,11 +16,10 @@ app.listen(3000, () => {
     console.log('Servidor iniciado en el puerto 3000')
 })
 
-//tmp-ambientaciones-Admin-488
 
 app.post('/auth', (req, res) => {
     const matchPassword = bcrypt.compareSync(req.body.password, user.password)
-    console.log(req.body, user, matchPassword)
+
     if (req.body.username === user.username && matchPassword) {
         const payload = {
             check: true
