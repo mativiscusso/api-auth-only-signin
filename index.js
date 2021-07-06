@@ -1,44 +1,46 @@
-const express = require('express')
-const jwt = require('jsonwebtoken')
-const bcrypt = require('bcrypt')
-const config = require('./config.js')
-const app = express()
+const express = require("express");
+const jwt = require("jsonwebtoken");
+const bcrypt = require("bcrypt");
+const config = require("./config.js");
+const app = express();
 
-const user = require('./user.json')
+const user = require("./user.json");
 
-app.set('llave', config.llave)
-app.use(express.urlencoded({
-    extended: true
-}))
-app.use(express.json())
+app.set("llave", config.llave);
+app.use(
+    express.urlencoded({
+        extended: true,
+    })
+);
+app.use(express.json());
 
-const port = process.env.port || 8080
+const port = process.env.PORT || 8080;
 
 app.listen(port, () => {
-    console.log(`Servidor iniciado en el puerto ${port}`)
-})
+    console.log(`Servidor iniciado en el puerto ${port}`);
+});
 
-app.get('/', (req, res) => {
-    res.send('hello')
-})
+app.get("/", (req, res) => {
+    res.send("hello");
+});
 
-app.post('/auth', (req, res) => {
-    const matchPassword = bcrypt.compareSync(req.body.password, user.password)
+app.post("/auth", (req, res) => {
+    const matchPassword = bcrypt.compareSync(req.body.password, user.password);
 
     if (req.body.username === user.username && matchPassword) {
         const payload = {
-            check: true
+            check: true,
         };
-        const token = jwt.sign(payload, app.get('llave'), {
-            expiresIn: 1440
+        const token = jwt.sign(payload, app.get("llave"), {
+            expiresIn: 1440,
         });
         res.status(200).json({
-            mensaje: 'Autenticación correcta',
-            token: token
+            mensaje: "Autenticación correcta",
+            token: token,
         });
     } else {
         res.status(500).json({
-            mensaje: "Usuario o contraseña incorrectos"
-        })
+            mensaje: "Usuario o contraseña incorrectos",
+        });
     }
-})
+});
