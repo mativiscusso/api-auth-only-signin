@@ -2,17 +2,15 @@ const express = require("express");
 const jwt = require("jsonwebtoken");
 const bcrypt = require("bcrypt");
 const config = require("./config.js");
+const cors = require("cors");
 const app = express();
 
 const user = require("./user.json");
 
+app.use(cors());
 app.set("llave", config.llave);
-app.use(
-    express.urlencoded({
-        extended: true,
-    })
-);
 app.use(express.json());
+app.use(express.urlencoded({ extended: false }));
 
 const port = process.env.PORT || 8080;
 
